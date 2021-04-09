@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BallPhysics : MonoBehaviour {
     public float bounceSpeed;
+
+    public Transform poleTransform;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,14 +14,13 @@ public class BallPhysics : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+        Physics.gravity = poleTransform.up * -1 * 9.8f;
     }
 
     private void OnCollisionEnter(Collision other) {
         if (other.collider.CompareTag("Piece")) {
-            this.GetComponent<Rigidbody>().velocity = new Vector3(0,bounceSpeed,0);
+            this.GetComponent<Rigidbody>().velocity = poleTransform.up * bounceSpeed;
         }
     }
 }
